@@ -36,6 +36,9 @@
     <ClInclude Include="SmartEdit.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="MFCUtils.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="UtilsTest.cpp">
@@ -48,6 +51,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="SmartEdit.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="MFCUtils.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

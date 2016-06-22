@@ -7,6 +7,8 @@
 #include "stdafx.h"
 #include "UtilsTest.h"
 #include "SmartEdit.h"
+#include "MFCUtils.h"
+using namespace MFCUtils;
 
 IMPLEMENT_DYNAMIC(SmartEdit, CEdit)
 
@@ -17,6 +19,12 @@ END_MESSAGE_MAP()
 SmartEdit::SmartEdit() {}
 SmartEdit::~SmartEdit() {}
 
+void SmartEdit::HighlightFileName() {
+	CString csFileName;
+	CEdit::GetWindowTextW(csFileName);
+	CEdit::SetFocus();
+	CEdit::SetSel(0, csFileName.ReverseFind(WCHAR_DOT));
+}
 void SmartEdit::OnDropFiles(HDROP hDropInfo) {
 	if(hDropInfo) {
 		/* 在这里做处理 */
@@ -45,5 +53,8 @@ void SmartEdit::OnDropFiles(HDROP hDropInfo) {
 		memset(wcsBuffer, 0, sizeof(wcsBuffer));
 		nFilePathLen = DragQueryFileW(hDropInfo, 0, wcsBuffer, MAX_PATH);
 		CEdit::SetWindowTextW(wcsBuffer);
+
+		// 处理示例3：高亮文件名
+		HighlightFileName();
 	}
 }

@@ -18,6 +18,7 @@ class SmartEdit : public CEdit {
 public:
 	SmartEdit();
 	virtual ~SmartEdit();
+	void HighlightFileName(); // 高亮文件名
 	afx_msg void OnDropFiles(HDROP hDropInfo); // 拖拽文件消息
 };
 

@@ -101,6 +101,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="MFCUtils.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SmartEdit.h" />
     <ClInclude Include="stdafx.h" />
@@ -109,6 +110,7 @@
     <ClInclude Include="UtilsTestDlg.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="MFCUtils.cpp" />
     <ClCompile Include="SmartEdit.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
