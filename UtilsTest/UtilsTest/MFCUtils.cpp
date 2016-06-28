@@ -37,6 +37,7 @@ void MFCUtils::WcscpyPtr(wchar_t** dstPtrAddr, const wchar_t* src) {
 	nLen = wcslen(src) + 1;
 	MultiDelete(*dstPtrAddr);
 	(*dstPtrAddr) = new wchar_t[nLen];
+	memset(*dstPtrAddr, 0, nLen << 1);
 	wcscpy_s(*dstPtrAddr, nLen, src);
 }
 void MFCUtils::WcscpyArray(wchar_t* dstArr, const size_t & sizeInWords, const wchar_t* src) {

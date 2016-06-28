@@ -5,7 +5,6 @@
 //----------------------------
 
 #include "stdafx.h"
-#include "UtilsTest.h"
 #include "SmartEdit.h"
 #include "MFCUtils.h"
 using namespace MFCUtils;
@@ -14,10 +13,22 @@ IMPLEMENT_DYNAMIC(SmartEdit, CEdit)
 
 BEGIN_MESSAGE_MAP(SmartEdit, CEdit)
 	ON_WM_DROPFILES()
+	ON_WM_CHAR()
 END_MESSAGE_MAP()
 
-SmartEdit::SmartEdit() {}
-SmartEdit::~SmartEdit() {}
+SmartEdit::SmartEdit() : m_bLimitInput(false), m_pData(NULL) {}
+SmartEdit::~SmartEdit() {
+	// 释放已经存储的限制字符输入气泡提示的数据
+	if(m_pData) {
+		MultiDelete(m_pData->lpszBallonTipTitle);
+		MultiDelete(m_pData->lpszBallonTipText);
+		delete m_pData;
+	}
+}
+
+static bool filter(UINT nChar) {
+	return ((nChar >= L'0') && (nChar <= L'9'));
+}
 
 void SmartEdit::HighlightFileName() {
 	CString csFileName;
@@ -25,7 +36,37 @@ void SmartEdit::HighlightFileName() {
 	CEdit::SetFocus();
 	CEdit::SetSel(0, csFileName.ReverseFind(WCHAR_DOT));
 }
-void SmartEdit::OnDropFiles(HDROP hDropInfo) {
+void SmartEdit::LimitInput(bool(*pfnFilter)(UINT nChar), LPCWSTR lpszBallonTipTitle /* = NULL */, LPCWSTR lpszBallonTipText /* = NULL */, INT ttiIcon /* = TTI_NONE */) {
+	m_bLimitInput = !!(pfnFilter); // 设置是否要限制输入
+	if(pfnFilter) {
+		if(!m_pData) {
+			m_pData = new LIMIT_INPUT_DATA;
+			m_pData->pfnFilter = NULL;
+			m_pData->lpszBallonTipText = NULL;
+			m_pData->lpszBallonTipTitle = NULL;
+			m_pData->ttiIcon = NULL;
+		}
+		m_pData->pfnFilter = pfnFilter;
+		WcscpyPtr(&m_pData->lpszBallonTipTitle, lpszBallonTipTitle);
+		WcscpyPtr(&m_pData->lpszBallonTipText, lpszBallonTipText);
+		m_pData->ttiIcon = ttiIcon;
+	}
+}
+void SmartEdit::WriteLog(LPCWSTR lpszLog, bool bPrintTime /* = true */) {
+	CString log;
+	this->GetWindowTextW(log);
+	if(log.GetLength())log.Append(NEW_LINE_WCS);
+	if(bPrintTime) {
+		CTime time = CTime::GetCurrentTime();
+		log.Append(GetCTimeFormatString(time));
+		log.Append(SPACE_WCS);
+	}
+	log.Append(lpszLog);
+	log.Append(NEW_LINE_WCS);
+	this->SetWindowTextW(log);
+	this->LineScroll(this->GetLineCount());
+}
+afx_msg void SmartEdit::OnDropFiles(HDROP hDropInfo) {
 	if(hDropInfo) {
 		/* 在这里做处理 */
 
@@ -56,5 +97,14 @@ void SmartEdit::OnDropFiles(HDROP hDropInfo) {
 
 		// 处理示例3：高亮文件名
 		HighlightFileName();
+
+		// 处理示例4：显示气泡提示
+		this->ShowBalloonTip(L"提示", L"成功的拖拽了文件进入编辑框！", TTI_INFO_LARGE);
+
+		// 处理示例5：限制用户输入数字0-9
+		LimitInput(&filter, L"提示", L"你只能输入0-9的数字！", TTI_ERROR_LARGE);
 	}
+}
+afx_msg void SmartEdit::OnChar(UINT nChar, UINT nRepCnt, UINT nFlags) {
+	((!m_bLimitInput) || m_pData->pfnFilter(nChar)) ? CEdit::OnChar(nChar, nRepCnt, nFlags) : this->ShowBalloonTip(m_pData->lpszBallonTipTitle, m_pData->lpszBallonTipText, m_pData->ttiIcon);
 }

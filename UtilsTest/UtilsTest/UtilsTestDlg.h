@@ -4,6 +4,8 @@
 
 #pragma once
 #include "SmartEdit.h"
+#include "SmartComboBox.h"
+#include "SmartListCtrl.h"
 
 
 // CUtilsTestDlg ¶Ô»°¿ò
@@ -31,4 +33,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	SmartEdit m_editTest1;
+	virtual void OnOK();
+	SmartComboBox m_cbTest1;
+	SmartListCtrl m_lcTest1;
 };

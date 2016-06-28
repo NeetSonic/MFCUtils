@@ -26,6 +26,8 @@ void CUtilsTestDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_EDIT_TEST_1, m_editTest1);
+	DDX_Control(pDX, IDC_COMBO_TEST1, m_cbTest1);
+	DDX_Control(pDX, IDC_LIST_TEST1, m_lcTest1);
 }
 
 BEGIN_MESSAGE_MAP(CUtilsTestDlg, CDialogEx)
@@ -45,10 +47,10 @@ BOOL CUtilsTestDlg::OnInitDialog()
 	SetIcon(m_hIcon, TRUE);			// 设置大图标
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 
-	ShowWindow(SW_MINIMIZE);
-
 	// TODO:  在此添加额外的初始化代码
-
+	double pColWidth[] = {0.1, 0.2, 0.5, 0.1, 0.1};
+	LPCWSTR lpszHeaders[] = {L"h1", L"h2", L"h3", L"h4", L"h5"};
+	m_lcTest1.Init(LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT | LVS_EX_FLATSB, 5, LVCFMT_LEFT, lpszHeaders, pColWidth);
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
@@ -88,3 +90,6 @@ HCURSOR CUtilsTestDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+
+
+void CUtilsTestDlg::OnOK() {}

@@ -103,7 +103,10 @@
   <ItemGroup>
     <ClInclude Include="MFCUtils.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="SmartComboBox.h" />
     <ClInclude Include="SmartEdit.h" />
+    <ClInclude Include="SmartListBox.h" />
+    <ClInclude Include="SmartListCtrl.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="UtilsTest.h" />
@@ -111,7 +114,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MFCUtils.cpp" />
+    <ClCompile Include="SmartComboBox.cpp" />
     <ClCompile Include="SmartEdit.cpp" />
+    <ClCompile Include="SmartListBox.cpp" />
+    <ClCompile Include="SmartListCtrl.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>

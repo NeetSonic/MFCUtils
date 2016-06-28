@@ -39,6 +39,15 @@
     <ClInclude Include="MFCUtils.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="SmartComboBox.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SmartListBox.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SmartListCtrl.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="UtilsTest.cpp">
@@ -54,6 +63,15 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="MFCUtils.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SmartComboBox.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SmartListBox.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SmartListCtrl.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
