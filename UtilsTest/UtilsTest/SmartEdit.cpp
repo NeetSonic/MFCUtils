@@ -7,7 +7,8 @@
 #include "stdafx.h"
 #include "SmartEdit.h"
 #include "MFCUtils.h"
-using namespace MFCUtils;
+#include "StringManager.h"
+#include "TimeManager.h"
 
 IMPLEMENT_DYNAMIC(SmartEdit, CEdit)
 
@@ -20,8 +21,8 @@ SmartEdit::SmartEdit() : m_bLimitInput(false), m_pData(NULL) {}
 SmartEdit::~SmartEdit() {
 	// 释放已经存储的限制字符输入气泡提示的数据
 	if(m_pData) {
-		MultiDelete(m_pData->lpszBallonTipTitle);
-		MultiDelete(m_pData->lpszBallonTipText);
+		MFCUtils::MultiDelete(m_pData->lpszBallonTipTitle);
+		MFCUtils::MultiDelete(m_pData->lpszBallonTipText);
 		delete m_pData;
 	}
 }
@@ -47,22 +48,21 @@ void SmartEdit::LimitInput(bool(*pfnFilter)(UINT nChar), LPCWSTR lpszBallonTipTi
 			m_pData->ttiIcon = NULL;
 		}
 		m_pData->pfnFilter = pfnFilter;
-		WcscpyPtr(&m_pData->lpszBallonTipTitle, lpszBallonTipTitle);
-		WcscpyPtr(&m_pData->lpszBallonTipText, lpszBallonTipText);
+		StringManager::WcscpyPtr(&m_pData->lpszBallonTipTitle, lpszBallonTipTitle);
+		StringManager::WcscpyPtr(&m_pData->lpszBallonTipText, lpszBallonTipText);
 		m_pData->ttiIcon = ttiIcon;
 	}
 }
 void SmartEdit::WriteLog(LPCWSTR lpszLog, bool bPrintTime /* = true */) {
 	CString log;
 	this->GetWindowTextW(log);
-	if(log.GetLength())log.Append(NEW_LINE_WCS);
+	if(log.GetLength())log.Append(WCS_NEW_LINE);
 	if(bPrintTime) {
-		CTime time = CTime::GetCurrentTime();
-		log.Append(GetCTimeFormatString(time));
-		log.Append(SPACE_WCS);
+		log.Append(TimeManager::GetCurrTimeFormattedString());
+		log.Append(WCS_SPACE);
 	}
 	log.Append(lpszLog);
-	log.Append(NEW_LINE_WCS);
+	log.Append(WCS_NEW_LINE);
 	this->SetWindowTextW(log);
 	this->LineScroll(this->GetLineCount());
 }

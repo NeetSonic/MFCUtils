@@ -48,6 +48,24 @@
     <ClInclude Include="SmartListCtrl.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="StringManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="FileManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="LinkStructs.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="FixedStructs.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="UtilsTest.cpp">
@@ -62,9 +80,6 @@
     <ClCompile Include="SmartEdit.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="MFCUtils.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="SmartComboBox.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -72,6 +87,18 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="SmartListCtrl.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="StringManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="FileManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogManager.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
